@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Genders</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body>
+    <input class="text" placeholder="Введите имя" />
+    <input type="button" value="Узнать пол" onclick="submit()" />
+    <script>
+      async function submit() {
+        const inputText = document.querySelector(".text");
+        const firstName = inputText.value;
+        const serverUrl = "https://api.genderize.io";
+        const url = `${serverUrl}?name=${firstName}`;
+        let response = await fetch(url);
+        if (response.ok) {
+          let result = await response.json();
+          alert(`${firstName} предполагаемый пол: ${result.gender}`);
+        } else {
+          alert("Ошибка HTTP: " + response.status);
+        }
+      }
+    </script>
+  </body>
+</html>
